@@ -12,6 +12,7 @@
 		"@prisma/client": "^6.3.1",
 		"@types/nodemailer": "^6.4.17",
 		"elysia": "latest",
+		"googleapis": "^144.0.0",
 		"nodemailer": "4.7.0",
 		"prisma": "^6.3.1"
 	},

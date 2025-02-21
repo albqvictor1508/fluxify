@@ -40,7 +40,7 @@ export const route = (elysia: typeof app) => {
 							birthDate,
 						},
 					}),
-					handleSendEmail({
+					await handleSendEmail({
 						email,
 						subject: "Fluxify - Seja bem vindo!",
 					}),
@@ -97,10 +97,7 @@ export const route = (elysia: typeof app) => {
 					}),
 				),
 				code: t.Optional(t.String()),
-				password: t.String({
-					pattern:
-						"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
-				}),
+				password: t.String({}),
 				birthDate: t.Date(),
 			}),
 		},

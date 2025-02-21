@@ -33,7 +33,11 @@ export const app = new Elysia({ name: "Fluxify" })
 	)
 	.derive(
 		async ({ path, headers: { authorization: auth }, jwt, cookie, error }) => {
-			const AUTH_ROUTES = ["/api/auth/new", "/api/auth/login"];
+			const AUTH_ROUTES = [
+				"/api/auth/new",
+				"/api/auth/login",
+				"/api/test/email",
+			];
 
 			if (AUTH_ROUTES.includes(path)) return { user: { id: "", email: "" } };
 

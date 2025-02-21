@@ -14,8 +14,8 @@ export const handleSendEmail = async ({
 
 	try {
 		const transport = createTransport({
-			host: env.MAIL_HOST,
-			service: env.MAIL_SERVICE,
+			host: "smtp.gmail.com",
+			service: "gmail",
 			port: 465,
 			secure: true, //true pra 465 e false pra qualquer outra porta (ta nas docs do nodemailer)
 			auth: {
