@@ -24,4 +24,8 @@ export const env = cleanEnv(process.env, {
 
 	// Redis
 	REDIS_URL: url(),
+	REDIS_SSL: str(),
+	REDIS_PORT: str(),
+	REDIS_HOST: str(),
+	REDIS_PASSWORD: str(),
 });
