@@ -5,9 +5,11 @@ import jwt from "@elysiajs/jwt";
 import { env } from "./utils/env";
 import { cors } from "@elysiajs/cors";
 import { PrismaClient } from "@prisma/client";
+import Redis from "ioredis";
 
 export const app = new Elysia({ name: "Fluxify" })
 	.decorate("prisma", new PrismaClient({ log: ["warn", "error", "query"] }))
+	.decorate("redis", new Redis(env.REDIS_URL))
 	.use(
 		swagger({
 			path: "/docs",
@@ -50,8 +52,6 @@ export const app = new Elysia({ name: "Fluxify" })
 			return { user }; //retornando o jwt verificado
 		},
 	);
-
-//mudar o prisma pra decorate e implementar e extensão do redis
 
 await loadRoutes();
 

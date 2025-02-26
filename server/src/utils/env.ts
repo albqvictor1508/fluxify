@@ -21,4 +21,7 @@ export const env = cleanEnv(process.env, {
 	GOOGLE_PUBLIC_ID: str(),
 	GOOGLE_SECRET_ID: str(),
 	GOOGLE_REDIRECT_URL: url(),
+
+	// Redis
+	REDIS_URL: url(),
 });
