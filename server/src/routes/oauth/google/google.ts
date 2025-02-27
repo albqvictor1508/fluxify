@@ -20,4 +20,21 @@ export const route = (elysia: typeof app) => {
 
 		redirect(authUrl);
 	});
+
+	elysia.get("/api/oauth/google/callback", async ({ query, error }) => {
+		const code = query.code;
+		if (!code) {
+			error("Bad Request", "Authorization code not provided");
+		}
+
+		try {
+			const { tokens } = await oauth2Client.getToken(code);
+			oauth2Client.setCredentials(tokens);
+
+			return { success: true };
+		} catch (e) {
+			console.debug(e);
+			error("Internal Server Error", `Error in Auth ${e}`);
+		}
+	});
 };
