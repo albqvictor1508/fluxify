@@ -31,6 +31,32 @@ const auto: AutoCacheConfig = {
 	stale: 0,
 };
 
-const config: CacheConfig = {};
+const config: CacheConfig = {
+	onHit: (key) => {
+		console.log(`[prisma:auto-cache] Cache hit for key ${key}`);
+	},
+	auto,
+	ttl: 60,
+	stale: 0,
+	transformer: {
+		deserialize: JSON.parse,
+		serialize: JSON.stringify,
+	},
+	type: "STRING",
+	cacheKey: {
+		delimiter: "*",
+		case: CacheCase.SNAKE_CASE,
+	},
+};
 
-export const createPrisma = async () => {};
+export const createPrisma = async () => {
+	const instance = prismaClient.$extends(
+		PrismaExtensionRedis({ config, client: redisClient }),
+	);
+
+	instance.$connect();
+
+	console.debug("[PRISMA:REDIS] DATABASE - We are on!");
+
+	return instance;
+};

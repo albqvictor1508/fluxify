@@ -4,12 +4,19 @@ import swagger from "@elysiajs/swagger";
 import jwt from "@elysiajs/jwt";
 import { env } from "./utils/env";
 import { cors } from "@elysiajs/cors";
-import { PrismaClient } from "@prisma/client";
-import Redis from "ioredis";
+import { createRedis } from "./utils/create-redis";
+import { createPrisma } from "./utils/database/prisma-extension-redis";
+
+const redis = await createRedis();
+const FLUSH_REDIS = false; //resetar o cache do redis
+
+if (FLUSH_REDIS) {
+	console.debug("[API:Redis] deleting all records for dev");
+}
 
 export const app = new Elysia({ name: "Fluxify" })
-	.decorate("prisma", new PrismaClient({ log: ["warn", "error", "query"] }))
-	.decorate("redis", new Redis(env.REDIS_URL))
+	.decorate("prisma", await createPrisma())
+	.decorate("redis", redis)
 	.use(
 		swagger({
 			path: "/docs",
