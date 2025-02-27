@@ -9,7 +9,15 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 export const route = (elysia: typeof app) => {
-	elysia.get("/api/oauth/google", async ({ cookie }) => {
-		const people = google.people({ version: "v1", auth: oauth2Client });
+	elysia.get("/api/oauth/google", async ({ redirect }) => {
+		const authUrl = oauth2Client.generateAuthUrl({
+			access_type: "offline",
+			scope: [
+				"https://googleapis.com/auth/userinfo.email",
+				"https://googleapis.com/auth/userinfo.profile",
+			],
+		});
+
+		redirect(authUrl);
 	});
 };
