@@ -3,6 +3,6 @@ import { Module } from '@nestjs/common';
 @Module({
   imports: [],
   controllers: [],
-  providers: [],
+  providers: [], // onde fica os services
 })
 export class AppModule { }
