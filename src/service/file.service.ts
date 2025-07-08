@@ -12,5 +12,12 @@ export class FileService {
   }
 
   //WARN: tem algumas soluções, como cloudConverter e API's de conversão de arquivos
-  async convertToPdf(fileBuffer: Buffer) { }
+  async convertToPdf(fileBuffer: Buffer) {
+  }
+
+  async convertToJpeg(imageBuffer: Buffer): Promise<Buffer> {
+    return sharp(imageBuffer).jpeg({ quality: 80 }).toBuffer();
+  }
+
+  async convertToJpg(imageBuffer: Buffer) { }
 }
